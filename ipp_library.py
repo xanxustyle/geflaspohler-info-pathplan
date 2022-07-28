@@ -155,7 +155,7 @@ class GPModel:
         
         # Read pre-trained kernel parameters from file, if avaliable and no training data is provided
         if os.path.isfile(kernel_file):
-            print "Loading kernel parameters from file"
+            print("Loading kernel parameters from file")
             logger.info("Loading kernel parameters from file")
             self.kern[:] = np.load(kernel_file)
         else:
@@ -189,7 +189,7 @@ class GPModel:
             xvals = self.xvals[::5]
             zvals = self.zvals[::5]
 
-            print "Optimizing kernel parameters given data"
+            print("Optimizing kernel parameters given data")
             logger.info("Optimizing kernel parameters given data")
             # Initilaize a GP model (used only for optmizing kernel hyperparamters)
             self.m = GPy.models.GPRegression(np.array(xvals), np.array(zvals), self.kern)
@@ -287,7 +287,7 @@ class Environment:
             # lives within the boundary constraints
             while maxima[0] < ranges[0] or maxima[0] > ranges[1] or \
                   maxima[1] < ranges[2] or maxima[1] > ranges[3]:
-                print "Current environment in violation of boundary constraint. Regenerating!"
+                print("Current environment in violation of boundary constraint. Regenerating!")
                 logger.warning("Current environment in violation of boundary constraint. Regenerating!")
 
                 # Intialize a GP model of the environment
@@ -353,7 +353,7 @@ class Environment:
                     #plt.show()           
                     plt.close()
         
-            print "Environment initialized with bounds X1: (", self.x1min, ",", self.x1max, ")  X2:(", self.x2min, ",", self.x2max, ")"
+            print("Environment initialized with bounds X1: (", self.x1min, ",", self.x1max, ")  X2:(", self.x2min, ",", self.x2max, ")")
             logger.info("Environment initialized with bounds X1: ({}, {})  X2: ({}, {})".format(self.x1min, self.x1max, self.x2min, self.x2max)) 
 
     def sample_value(self, xvals):
@@ -509,7 +509,7 @@ class Dubins_Path_Generator(Path_Generator):
         coords = self.buffered_paths()
         
         if len(coords) == 0:
-            print 'no viable path'
+            print('no viable path')
             
         self.samples = coords
         return coords
@@ -606,7 +606,7 @@ class MCTS:
 
         # get the best action to take with most promising futures
         best_sequence, best_val, all_vals = self.get_best_child()
-        print "Number of rollouts:", i, "\t Size of tree:", len(self.tree)
+        print("Number of rollouts:", i, "\t Size of tree:", len(self.tree))
         logger.info("Number of rollouts: {} \t Size of tree: {}".format(i, len(self.tree)))
 
         paths = self.path_generator.get_path_set(self.cp)                
@@ -658,7 +658,7 @@ class MCTS:
         for i in xrange(self.rl):
             actions = self.path_generator.get_path_set(self.tree[node][0][-1]) #plan from the last point in the sample
             if len(actions) == 0:
-                print 'No actions were viably generated'
+                print('No actions were viably generated')
             try:
                 
                 try:
@@ -677,12 +677,12 @@ class MCTS:
                 node = node + ' child ' + str(keys[a])
                 sequence.append(node)
             except:
-                print 'rolling back'
+                print('rolling back')
                 sequence.remove(node)
                 try:
                     node = sequence[-1]
                 except:
-                    print "Empty sequence", sequence, node
+                    print("Empty sequence", sequence, node)
                     logger.warning('Bad sequence')
         return sequence
 
@@ -900,14 +900,14 @@ class Robot(object):
         
         for t in xrange(T):
             # Select the best trajectory according to the robot's aquisition function
-            print "[", t, "] Current Location:  ", self.loc
+            print("[", t, "] Current Location:  ", self.loc)
             logger.info("[{}] Current Location: {}".format(t, self.loc))
             best_path, best_val, all_paths, all_values, max_locs = self.choose_trajectory(t = t)
             
             # Given this choice, update the evaluation metrics 
             # TODO: fix this
             pred_loc, pred_val = self.predict_max()
-            print "Current predicted max and value: \t", pred_loc, "\t", pred_val
+            print("Current predicted max and value: \t", pred_loc, "\t", pred_val)
             logger.info("Current predicted max and value: {} \t {}".format(pred_loc, pred_val))
 
             try:
@@ -1082,7 +1082,7 @@ class Nonmyopic_Robot(Robot):
         self.trajectory = []
                  
         for t in xrange(T):
-            print "[", t, "] Current Location:  ", self.loc            
+            print("[", t, "] Current Location:  ", self.loc)
             logger.info("[{}] Current Location: {}".format(t, self.loc))
 
             if self.f_rew == "exp_improve":
@@ -1108,7 +1108,7 @@ class Nonmyopic_Robot(Robot):
             all_paths = self.path_generator.get_path_set(self.loc)
             
             pred_loc, pred_val = self.predict_max()
-            print "Current predicted max and value: \t", pred_loc, "\t", pred_val
+            print("Current predicted max and value: \t", pred_loc, "\t", pred_val)
             logger.info("Current predicted max and value: {} \t {}".format(pred_loc, pred_val))
 
             try:
@@ -1144,7 +1144,7 @@ class Evaluation:
         self.max_loc = world.GP.xvals[np.argmax(world.GP.zvals), :]
         self.reward_function = reward_function
 
-        print "World max value", self.max_val, "at location", self.max_loc
+        print("World max value", self.max_val, "at location", self.max_loc)
         logger.info("World max value {} at location {}".format(self.max_val, self.max_loc))
         
         self.metrics = {'aquisition_function': {},
@@ -1578,7 +1578,7 @@ def sample_max_vals(robot_model, t, nK = 3, nFeatures = 300, visualize = True):
     delete_locs = []
 
     for i in xrange(nK):
-        print "Starting global optimization", i, "of", nK
+        print("Starting global optimization", i, "of", nK)
         logger.info("Starting global optimization {} of {}".format(i, nK))
         # Draw the weights for the random features
         # TODO: make sure this formula is correct
@@ -1605,7 +1605,7 @@ def sample_max_vals(robot_model, t, nK = 3, nFeatures = 300, visualize = True):
                 theta = noise - np.dot(Z, np.dot(U, R*(np.dot(U.T, np.dot(Z.T, noise))))) + mu
             except:
                 # If Sigma is not positive definite, ignore this simulation
-                print "[ERROR]: Sigma is not positive definite, ignoring simulation", i
+                print("[ERROR]: Sigma is not positive definite, ignoring simulation", i)
                 logger.warning("[ERROR]: Sigma is not positive definite, ignoring simulation {}".format(i))
                 delete_locs.append(i)
                 continue
@@ -1618,7 +1618,7 @@ def sample_max_vals(robot_model, t, nK = 3, nFeatures = 300, visualize = True):
                 theta = mu + np.dot(np.linalg.cholesky(Sigma), noise)            
             except:
                 # If Sigma is not positive definite, ignore this simulation
-                print "[ERROR]: Sigma is not positive definite, ignoring simulation", i
+                print("[ERROR]: Sigma is not positive definite, ignoring simulation", i)
                 logger.warning("[ERROR]: Sigma is not positive definite, ignoring simulation {}".format(i))
                 delete_locs.append(i)
                 continue
@@ -1652,7 +1652,7 @@ def sample_max_vals(robot_model, t, nK = 3, nFeatures = 300, visualize = True):
         
         samples[i] = max_val
         funcs.append(target)
-        print "Max Value in Optimization \t \t", samples[i]
+        print("Max Value in Optimization \t \t", samples[i])
         logger.info("Max Value in Optimization \t {}".format(samples[i]))
         locs[i, :] = maxima
         
@@ -1661,7 +1661,7 @@ def sample_max_vals(robot_model, t, nK = 3, nFeatures = 300, visualize = True):
         #    maxima[1] == robot_model.ranges[2] or maxima[1] == robot_model.ranges[3]:
         if max_val < np.max(robot_model.zvals) + 5.0 * np.sqrt(robot_model.noise):
             samples[i] = np.max(robot_model.zvals) + 5.0 * np.sqrt(robot_model.noise)
-            print "Max observed is bigger than max in opt:", samples[i]
+            print("Max observed is bigger than max in opt:", samples[i])
             logger.info("Max observed is bigger than max in opt: {}".format(samples[i]))
             locs[i, :] = robot_model.xvals[np.argmax(robot_model.zvals)]
 
@@ -1912,7 +1912,7 @@ def global_maximization(target, target_vector_n, target_grad, target_vector_grad
             jac = target_vector_gradient_n, bounds = ((ranges[0], ranges[1]), (ranges[2], ranges[3])))
 
     if res['success'] == False:
-        print "Failed to converge!"
+        print("Failed to converge!")
         #print res
 
         logger.warning("Failed to converge! \n")
