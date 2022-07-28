@@ -181,7 +181,7 @@ class Dubins_Path_Generator(Path_Generator):
 
         
         if len(coords) == 0:
-            print 'no viable path'
+            print('no viable path')
             #pdb.set_trace()
             #coords, true_coords = self.buffered_paths()
             
@@ -371,7 +371,7 @@ if __name__ == '__main__':
     coord = (5.2,5.2,0)
     for m in range(1):
         paths, true_paths = gen.get_path_set(coord)
-        print len(paths)
+        print(len(paths))
         action = np.random.choice(paths.keys())
         for i, path in paths.items():
             f = np.array(path)
@@ -382,7 +382,7 @@ if __name__ == '__main__':
         # samples.append(paths[action])
         # trajectory.append(true_paths[action])
         coord = paths[action][-1]
-        print m
+        print(m)
 
     # for e, k in zip(samples, trajectory):
     #     f = np.array(e)
