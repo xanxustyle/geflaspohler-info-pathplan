@@ -263,12 +263,12 @@ class Robot(object):
         for t in xrange(T):
             # Select the best trajectory according to the robot's aquisition function
             self.time = t
-            print "[", t, "] Current Location:  ", self.loc, "Current Time:", self.time
+            print("[", t, "] Current Location:  ", self.loc, "Current Time:", self.time)
             logger.info("[{}] Current Location: {}".format(t, self.loc))
 
             # Let's figure out where the best point is in our world
             pred_loc, pred_val = self.predict_max()
-            print "Current predicted max and value: \t", pred_loc, "\t", pred_val
+            print("Current predicted max and value: \t", pred_loc, "\t", pred_val)
             logger.info("Current predicted max and value: {} \t {}".format(pred_loc, pred_val))
 
             # If myopic planner
@@ -443,7 +443,7 @@ class Robot(object):
         elif self.dimension == 3:
             data = np.vstack([x1.ravel(), x2.ravel(), self.time * np.ones(len(x1.ravel()))]).T
 
-        print "Entering visualize reward"
+        print("Entering visualize reward")
 
         if self.f_rew == 'mes' or self.f_rew == 'maxs-mes':
             param = (self.max_val, self.max_locs, self.target)
@@ -459,7 +459,7 @@ class Robot(object):
 
         '''
         r = self.aquisition_function(time = t, xvals = data, robot_model = self.GP, param = param)
-        print "rewrd:", r
+        print("rewrd:", r)
         '''
         
         reward = self.aquisition_function(time = t, xvals = data, robot_model = self.GP, param = param, FVECTOR = True)
