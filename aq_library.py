@@ -187,7 +187,7 @@ def sample_max_vals(robot_model, t, nK = 3, nFeatures = 200, visualize = False, 
                 theta = noise - np.dot(Z, np.dot(U, R*(np.dot(U.T, np.dot(Z.T, noise))))) + mu
             except:
                 # If Sigma is not positive definite, ignore this simulation
-                print "[ERROR]: Sigma is not positive definite, ignoring simulation", i
+                print("[ERROR]: Sigma is not positive definite, ignoring simulation", i)
                 logger.warning("[ERROR]: Sigma is not positive definite, ignoring simulation {}".format(i))
                 delete_locs.append(i)
                 continue
@@ -200,7 +200,7 @@ def sample_max_vals(robot_model, t, nK = 3, nFeatures = 200, visualize = False, 
                 theta = mu + np.dot(np.linalg.cholesky(Sigma), noise)            
             except:
                 # If Sigma is not positive definite, ignore this simulation
-                print "[ERROR]: Sigma is not positive definite, ignoring simulation", i
+                print("[ERROR]: Sigma is not positive definite, ignoring simulation", i)
                 logger.warning("[ERROR]: Sigma is not positive definite, ignoring simulation {}".format(i))
                 delete_locs.append(i)
                 continue
@@ -249,7 +249,7 @@ def sample_max_vals(robot_model, t, nK = 3, nFeatures = 200, visualize = False, 
         
         samples[i] = np.array(max_val).reshape((1,1))
         funcs.append(copy.deepcopy(target))
-        print "Max Value in Optimization \t \t", samples[i]
+        print("Max Value in Optimization \t \t", samples[i])
         logger.info("Max Value in Optimization \t {}".format(samples[i]))
         locs[i, :] = maxima.reshape((1,d))
         
@@ -265,7 +265,7 @@ def sample_max_vals(robot_model, t, nK = 3, nFeatures = 200, visualize = False, 
             locs[i, :] = robot_model.xvals[np.argmax(robot_model.zvals)]
         '''
 
-    print "Deleting values at:", delete_locs
+    print("Deleting values at:", delete_locs)
     samples = np.delete(samples, delete_locs, axis = 0)
     locs = np.delete(locs, delete_locs, axis = 0)
 
@@ -275,7 +275,7 @@ def sample_max_vals(robot_model, t, nK = 3, nFeatures = 200, visualize = False, 
         locs[0, :] = robot_model.xvals[np.argmax(robot_model.zvals)]
   
 
-    print "Returning:", samples.shape, locs.shape
+    print("Returning:", samples.shape, locs.shape)
     return samples, locs, funcs
 
 def mves(time, xvals, robot_model, param, FVECTOR = False):
@@ -473,9 +473,9 @@ def global_maximization(target, target_vector_n, target_grad, target_vector_grad
     
     # Get the function value at Xgrid locations
     y = target(Xgrid)
-    print "y shape:", y.shape
+    print("y shape:", y.shape)
     max_index = np.argmax(y)   
-    print "Max index:", max_index
+    print("Max index:", max_index)
     start = np.asarray(Xgrid[max_index, :])
 
     # If the highest sample point seen is ouside of the boundary, find the highest inside the boundary
@@ -531,7 +531,7 @@ def global_maximization(target, target_vector_n, target_grad, target_vector_grad
                 jac = target_vector_gradient_n, bounds = ((ranges[0], ranges[1]), (ranges[2], ranges[3]), (time, time)))
 
     if res['success'] == False:
-        print "Failed to converge!"
+        print("Failed to converge!")
         #print res
 
         logger.warning("Failed to converge! \n")
