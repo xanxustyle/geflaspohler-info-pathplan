@@ -6,4 +6,3 @@ scipy
 GPy
 dubins
 shapely
-sets
