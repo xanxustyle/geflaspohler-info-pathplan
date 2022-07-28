@@ -12,7 +12,6 @@ import numpy as np
 import math
 import os
 import copy
-from sets import Set
 import GPy as GPy
 from GPy.inference.latent_function_inference import exact_gaussian_inference
 from GPy.util.linalg import pdinv, dpotrs, dpotri, symmetrify, jitchol, dtrtrs, tdot
@@ -560,7 +559,7 @@ class SpatialGPModel(GPModel):
             for index in points:
                 point_list.append(index)
 
-        point_set = Set(point_list)
+        point_set = set(point_list)
         xpoints = [self.xvals[index] for index in point_set]
         zpoints = [self.zvals[index] for index in point_set]
         # print "Size before:", len(xpoints)
@@ -583,7 +582,7 @@ class SpatialGPModel(GPModel):
             # if xvals.shape[0] < 10:
             #     print "The wait list:", wait_list
 
-            wait_set = Set(wait_list)
+            wait_set = set(wait_list)
         
             xpoints = [self.xwait[index] for index in wait_set] + xpoints
             zpoints = [self.zwait[index] for index in wait_set] + zpoints
