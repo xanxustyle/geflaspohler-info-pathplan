@@ -100,7 +100,7 @@ class MCTS(object):
             self.update_tree(reward, cost, sequence)
 
         time_end = time.time()
-        print "Rollouts completed in", str(time_end - time_start) +  "s", 
+        print("Rollouts completed in", str(time_end - time_start) +  "s", )
 
         # get the best action to take with most promising futures, base best on whether to
         # consider cost
@@ -108,7 +108,7 @@ class MCTS(object):
         paths, dense_paths = self.path_generator.get_path_set(self.cp)
 
         #Document the information
-        print "Number of rollouts:", i, "\t Size of tree:", len(self.tree)
+        print("Number of rollouts:", i, "\t Size of tree:", len(self.tree))
         logger.info("Number of rollouts: {} \t Size of tree: {}".format(i, len(self.tree)))
         np.save('./figures/' + self.f_rew + '/tree_' + str(t) + '.npy', self.tree)
         return self.tree[best_sequence][0], self.tree[best_sequence][1], best_val, paths, all_vals, self.max_locs, self.max_val
@@ -159,10 +159,10 @@ class MCTS(object):
             try:
                 keys = actions.keys()
             except:
-                print 'No actions were viably generated; rolling back'
+                print('No actions were viably generated; rolling back')
                 sequence.remove(node)
                 if len(sequence) == 0:
-                    print "Empty sequence ", sequence, node
+                    print("Empty sequence ", sequence, node)
                     logger.warning("Bad Sequence")
             #select a random action
             try: 
@@ -309,7 +309,7 @@ class Node(object):
         self.children.append(child_node)
     
     def print_self(self):
-        print self.name
+        print(self.name)
 
 class Tree(object):
     def __init__(self, f_rew, f_aqu,  belief, pose, path_generator, t, depth, param, c):
@@ -457,7 +457,7 @@ class Tree(object):
     def build_action_children(self, parent):
         actions, dense_paths = self.path_generator.get_path_set(parent.pose)
         if len(actions) == 0:
-            print "No actions!", 
+            print("No actions!", )
             return
         
         #print "Creating children for:", parent.name
@@ -472,7 +472,7 @@ class Tree(object):
 
     def print_tree(self):
         counter = self.print_helper(self.root)
-        print "# nodes in tree:", counter
+        print("# nodes in tree:", counter)
 
     def print_helper(self, cur_node):
         if cur_node.children is None:
@@ -658,7 +658,7 @@ class cMCTS(MCTS):
                 # self.c = 5.0
         else:
             self.c = 1.0
-        print "Setting c to :", self.c
+        print("Setting c to :", self.c)
 
     def choose_trajectory(self, t):
         #Main function loop which makes the tree and selects the best child
@@ -697,11 +697,11 @@ class cMCTS(MCTS):
             if True:
                 gp = copy.copy(self.GP)
         time_end = time.time()
-        print "Rollouts completed in", str(time_end - time_start) +  "s"
-        print "Number of rollouts:", i
+        print("Rollouts completed in", str(time_end - time_start) +  "s")
+        print("Number of rollouts:", i)
         self.tree.print_tree()
 
-        print [(node.nqueries, node.reward/node.nqueries) for node in self.tree.root.children]
+        print([(node.nqueries, node.reward/node.nqueries) for node in self.tree.root.children])
 
         #best_child = self.tree.root.children[np.argmax([node.nqueries for node in self.tree.root.children])]
         best_child = random.choice([node for node in self.tree.root.children if node.nqueries == max([n.nqueries for n in self.tree.root.children])])
