@@ -154,7 +154,7 @@ def sample_max_vals(robot_model, t, nK = 3, nFeatures = 200, visualize = False, 
     delete_locs = []
 
     for i in xrange(nK):
-        print "Starting global optimization", i, "of", nK
+        print("Starting global optimization", i, "of", nK)
         logger.info("Starting global optimization {} of {}".format(i, nK))
 
         # Draw the weights for the random features
