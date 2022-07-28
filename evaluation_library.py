@@ -44,7 +44,7 @@ class Evaluation:
         self.reward_function = reward_function
         self.num_stars = num_stars
 
-        print "World max value", self.max_val, "at location", self.max_loc
+        print("World max value", self.max_val, "at location", self.max_loc)
         logger.info("World max value {} at location {}".format(self.max_val, self.max_loc))
         
         self.metrics = {'aquisition_function': {},
