@@ -141,7 +141,7 @@ class Environment:
             if self.time_duration is None:
                 self.time_duration = 1;
 
-            for T in xrange(self.time_duration):
+            for T in range(self.time_duration):
                 print("Generating environment for time", T)
                 logger.warning("Generating environemnt for time %d", T)
                 # Initialize maxima arbitrarily to violate boundary constraints
