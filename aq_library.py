@@ -306,7 +306,7 @@ def mves(time, xvals, robot_model, param, FVECTOR = False):
     else:
         f = 0
 
-    for i in xrange(maxes.shape[0]):
+    for i in range(maxes.shape[0]):
         # Compute the posterior mean/variance predictions and gradients.
         #[meanVector, varVector, meangrad, vargrad] = mean_var(x, xx, ...
         #    yy, KernelMatrixInv{i}, l(i,:), sigma(i), sigma0(i));
