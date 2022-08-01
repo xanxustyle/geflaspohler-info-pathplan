@@ -153,7 +153,7 @@ def sample_max_vals(robot_model, t, nK = 3, nFeatures = 200, visualize = False, 
     funcs = []
     delete_locs = []
 
-    for i in xrange(nK):
+    for i in range(nK):
         print("Starting global optimization", i, "of", nK)
         logger.info("Starting global optimization {} of {}".format(i, nK))
 
@@ -354,7 +354,7 @@ def naive(time, xvals, robot_model, param, FVECTOR = False):
     # pdb.set_trace()
     f = np.zeros((data.shape[0], 1))
 
-    for i in xrange(max_locs.shape[0]):
+    for i in range(max_locs.shape[0]):
         d = np.sqrt(np.square(x1-max_locs[i][0]) + np.square(x2-max_locs[i][1]))
         count = d <= param[1]
         f += count.astype(float).reshape(f.shape)
@@ -388,7 +388,7 @@ def naive_value(time, xvals, robot_model, param, FVECTOR = False):
 
     # Initialize f
     f = np.zeros((data.shape[0], 1))
-    for i in xrange(max_vals.shape[0]):
+    for i in range(max_vals.shape[0]):
         #simple value distance check between the query point and the maximum
         # mean, var = robot_model.predict_value(queries)
         mean = funcs[i](queries)
