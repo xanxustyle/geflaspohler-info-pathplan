@@ -184,9 +184,7 @@ class Environment:
                     
                         np.random.seed(seed)
                         observations = self.GP.posterior_samples(data[1:, :], full_cov = True, size=1)
-                        print(data.shape)
-                        print(observations.shape)
-                        self.GP.add_data(data[1:, :], observations)                            
+                        self.GP.add_data(data[1:, :], np.squeeze(observations, axis=2))
                     else:
                         np.random.seed(seed)
                         observations = self.models[T-1].posterior_samples(data, full_cov = True, size=1)
