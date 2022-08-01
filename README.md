@@ -36,4 +36,4 @@ To run the demo notebook and to use some of the libraries, the following package
 * matplotlib
 * Ipython
 
-The code is adjusted to be Python 3 compatible from [geflaspohler's informative path planner](https://github.com/geflaspohler/informative-path-planning)
+The code was made compatible for Python 3 from [geflaspohler's informative path planner](https://github.com/geflaspohler/informative-path-planning).
