@@ -229,7 +229,7 @@ class Environment:
                         plt.close('all')
 
                 # World with satisfactory maxima generated
-                self.models[T] = self.GP.copy()
+                self.models[T] = self.GP.kern.copy()
         
             maxind = np.argmax(self.GP.zvals)
             self.max_val = self.GP.zvals[maxind, :]
