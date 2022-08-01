@@ -260,7 +260,7 @@ class Robot(object):
         self.trajectory = []
         self.dist = 0
         
-        for t in xrange(T):
+        for t in range(T):
             # Select the best trajectory according to the robot's aquisition function
             self.time = t
             print("[", t, "] Current Location:  ", self.loc, "Current Time:", self.time)
