@@ -1,5 +1,7 @@
 # Informative Path Planning: Exploring Performance of Robots for Science Missions
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xanxustyle/geflaspohler-info-pathplan/HEAD)
+
 Adaptive sampling is a crtical autonomous behavior for robotic systems in a number of contexts -- from selecting actions to perform to refine a gripping/manipulation controller, to selecting the next best place to observe a sample in an uknown environment. The specific focus of this respository is to make a simple adaptive sampling playground for simualted point-robots in smooth, Gaussian environments -- environments that can be commonly found in nature (rolling hills, distribution of flora, fluid dispersion, etc). We frame the problem as a POMDP, and solve it using a Monte Carlo Tree Search (MCTS) instance. A number of parameters can be tuned by a user of this repository, including:
 * planning horizon (supports myopic planning)
 * type of MCTS (vanilla, or double progressive-widening are allowed)
