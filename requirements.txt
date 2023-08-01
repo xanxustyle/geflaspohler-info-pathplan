@@ -1,6 +1,6 @@
 numpy
 matplotlib
-sklearn
+scikit-learn
 iPython
 scipy
 GPy
